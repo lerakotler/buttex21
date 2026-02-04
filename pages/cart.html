@@ -295,17 +295,16 @@
             promoInput.value = '';
         }
         
-        function checkout() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            if (cart.length === 0) {
-                alert('Корзина пуста');
-                return;
-            }
-            
-            // Здесь обычно переход на страницу оформления заказа
-            alert('Переход к оформлению заказа. В реальном проекте здесь будет форма оформления.');
-            // window.location.href = 'checkout.html';
-        }
+function checkout() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('Корзина пуста');
+        return;
+    }
+    
+    // Переход на страницу оформления заказа
+    window.location.href = 'checkout.html';
+}
         
         function loadRecommendedProducts() {
             const container = document.getElementById('recommended-products');
