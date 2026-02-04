@@ -663,27 +663,42 @@
         <div class="categories">
             <h2 class="section-title">Категории товаров</h2>
             <div class="categories-grid">
-                <a href="./pages/catalog.html?category=kitchen" class="category-card">
-                    <i class="fas fa-blender"></i>
-                    <h3>Кухонная техника</h3>
-                    <p>Холодильники, плиты, духовки</p>
-                </a>
-                <a href="./pages/catalog.html?category=cleaning" class="category-card">
-                    <i class="fas fa-broom"></i>
-                    <h3>Уборка</h3>
-                    <p>Пылесосы, роботы-пылесосы</p>
-                </a>
-                <a href="./pages/catalog.html?category=climate" class="category-card">
-                    <i class="fas fa-fan"></i>
-                    <h3>Климат</h3>
-                    <p>Кондиционеры, обогреватели</p>
-                </a>
-                <a href="./pages/catalog.html?category=electronics" class="category-card">
-                    <i class="fas fa-tv"></i>
-                    <h3>Электроника</h3>
-                    <p>Телевизоры, аудиосистемы</p>
-                </a>
-            </div>
+    <div class="category-card" onclick="openCategory('electronics')">
+        <i class="fas fa-laptop"></i>
+        <h3>Электроника</h3>
+        <p>Современные гаджеты и техника</p>
+    </div>
+    
+    <div class="category-card" onclick="openCategory('kitchen')">
+        <i class="fas fa-utensils"></i>
+        <h3>Кухня</h3>
+        <p>Посуда и техника для кухни</p>
+    </div>
+    
+    <div class="category-card" onclick="openCategory('cleaning')">
+        <i class="fas fa-broom"></i>
+        <h3>Уборка</h3>
+        <p>Средства для чистоты</p>
+    </div>
+    
+    <div class="category-card" onclick="openCategory('climate')">
+        <i class="fas fa-fan"></i>
+        <h3>Климат</h3>
+        <p>Кондиционеры и обогреватели</p>
+    </div>
+    
+    <div class="category-card" onclick="openCategory('appliances')">
+        <i class="fas fa-home"></i>
+        <h3>Бытовая техника</h3>
+        <p>Для дома и семьи</p>
+    </div>
+    
+    <div class="category-card" onclick="window.location.href='pages/catalog.html'">
+        <i class="fas fa-th-large"></i>
+        <h3>Все категории</h3>
+        <p>Посмотреть весь каталог</p>
+    </div>
+</div>
         </div>
     </main>
 
@@ -740,34 +755,41 @@
             });
         });
         
-        function loadPopularProducts() {
-            const container = document.getElementById('popular-products');
-            const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
-            
-            // Берем первые 4 товара как популярные
-            const popular = products.slice(0, 4);
-            
-            container.innerHTML = popular.map(product => `
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}">
-                        <button class="fav-btn" onclick="toggleFavorite(${product.id})">
-                            <i class="fas fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="product-info">
-                        <h3><a href="product.html?id=${product.id}">${product.name}</a></h3>
-                        <div class="product-rating">
-                            ${getRatingStars(product.rating)}
-                            <span>(${product.reviews})</span>
-                        </div>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price">${product.price.toLocaleString()} ₽</div>
-                        <button class="btn btn-secondary" onclick="addToCart(${product.id})">В корзину</button>
-                    </div>
+    function loadPopularProducts() {
+    const container = document.getElementById('popular-products');
+    const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
+    
+    // Берем первые 4 товара как популярные
+    const popular = products.slice(0, 4);
+    
+    container.innerHTML = popular.map(product => `
+        <div class="product-card">
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.name}" 
+                     onclick="window.location.href='pages/product.html?id=${product.id}'" 
+                     style="cursor: pointer;">
+                <button class="fav-btn" onclick="toggleFavorite(${product.id})">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+            <div class="product-info">
+                <h3><a href="pages/product.html?id=${product.id}" onclick="return openProduct(${product.id})">${product.name}</a></h3>
+                <div class="product-rating">
+                    ${getRatingStars(product.rating)}
+                    <span>(${product.reviews})</span>
                 </div>
-            `).join('');
-        }
+                <p class="product-description">${product.description}</p>
+                <div class="product-price">${product.price.toLocaleString()} ₽</div>
+                <button class="btn btn-secondary" onclick="addToCart(${product.id})">В корзину</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openCategory(category) {
+    window.location.href = `pages/catalog.html?category=${category}`;
+    return false;
+}
         
         function getRatingStars(rating) {
             let stars = '';
