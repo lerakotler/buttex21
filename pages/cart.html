@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - ТехноДом</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <i class="fas fa-home"></i>
+                    <span>ТехноДом</span>
+                </a>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="../pages/catalog.html"><i class="fas fa-list"></i> Каталог</a></li>
+                    <li><a href="../pages/cart.html" class="active"><i class="fas fa-shopping-cart"></i> Корзина <span class="cart-count">0</span></a></li>
+                    <li><a href="../pages/favorites.html"><i class="fas fa-heart"></i> Избранное <span class="fav-count">0</span></a></li>
+                    <li><a href="../pages/delivery.html"><i class="fas fa-truck"></i> Доставка</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="cart-header">
+            <h1>Корзина</h1>
+            <a href="../pages/catalog.html" class="continue-shopping">
+                <i class="fas fa-arrow-left"></i> Продолжить покупки
+            </a>
+        </div>
+        
+        <div class="cart-container">
+            <div class="cart-items" id="cart-items">
+                <!-- Товары в корзине загружаются через JS -->
+                <div class="empty-cart" id="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Ваша корзина пуста</h3>
+                    <p>Добавьте товары из каталога</p>
+                    <a href="../pages/catalog.html" class="btn btn-primary">Перейти в каталог</a>
+                </div>
+            </div>
+            
+            <div class="cart-summary" id="cart-summary">
+                <h3>Итого</h3>
+                <div class="summary-row">
+                    <span>Товары (<span id="items-count">0</span>)</span>
+                    <span id="subtotal">0 ₽</span>
+                </div>
+                <div class="summary-row">
+                    <span>Доставка</span>
+                    <span id="delivery-cost">0 ₽</span>
+                </div>
+                <div class="summary-row discount-row">
+                    <span>Скидка</span>
+                    <span id="discount-amount">0 ₽</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>К оплате</span>
+                    <span id="total-amount">0 ₽</span>
+                </div>
+                
+                <div class="promo-code">
+                    <input type="text" id="promo-input" placeholder="Промокод">
+                    <button onclick="applyPromoCode()" class="btn btn-outline">Применить</button>
+                </div>
+                
+                <button class="btn btn-primary btn-lg" onclick="checkout()" id="checkout-btn" disabled>
+                    Перейти к оформлению
+                </button>
+                
+                <div class="payment-methods">
+                    <p><i class="fas fa-credit-card"></i> Оплата картой, наличными или в рассрочку</p>
+                    <p><i class="fas fa-shield-alt"></i> Безопасная оплата</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="recommended-products">
+            <h3>Рекомендуемые товары</h3>
+            <div class="products-grid" id="recommended-products">
+                <!-- Рекомендации загружаются через JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>ТехноДом</h3>
+                <p>Магазин качественной бытовой техники с 2010 года</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Покупателям</h3>
+                <ul>
+                    <li><a href="../САЙТ/pages/catalog.html">Каталог</a></li>
+                    <li><a href="../САЙТ/pages/delivery.html">Доставка и оплата</a></li>
+                    <li><a href="../САЙТ/pages/faq.html">Вопросы и ответы</a></li>
+                    <li><a href="../САЙТ/pages/privacy.html">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-phone"></i> 8 (800) 123-45-67</p>
+                <p><i class="fas fa-envelope"></i> info@technodom.ru</p>
+                <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Техническая, 15</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 ТехноДом. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            updateCartCount();
+            updateFavCount();
+            loadRecommendedProducts();
+            
+            // Мобильное меню
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const nav = document.querySelector('nav ul');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                nav.classList.toggle('show');
+            });
+        });
+        
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('cart-items');
+            const summary = document.getElementById('cart-summary');
+            const emptyCart = document.getElementById('empty-cart');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyCart);
+                summary.style.display = 'none';
+                return;
+            }
+            
+            summary.style.display = 'block';
+            
+            // Загрузка всех товаров
+            const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
+            
+            let subtotal = 0;
+            let itemsCount = 0;
+            
+            container.innerHTML = cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (!product) return '';
+                
+                const itemTotal = product.price * item.quantity;
+                subtotal += itemTotal;
+                itemsCount += item.quantity;
+                
+                return `
+                    <div class="cart-item" data-id="${item.productId}">
+                        <div class="cart-item-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                            <div class="cart-item-meta">
+                                <span>Код: ${product.code}</span>
+                                <span class="stock ${product.inStock ? 'in-stock' : 'out-of-stock'}">
+                                    ${product.inStock ? 'В наличии' : 'Нет в наличии'}
+                                </span>
+                            </div>
+                            <div class="cart-item-actions">
+                                <button class="btn-quantity" onclick="updateQuantity(${item.productId}, -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="btn-quantity" onclick="updateQuantity(${item.productId}, 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn-remove" onclick="removeFromCart(${item.productId})">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                                <button class="btn-fav" onclick="toggleFavorite(${item.productId})">
+                                    <i class="fas fa-heart"></i> В избранное
+                                </button>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">
+                            <div class="price-total">${itemTotal.toLocaleString()} ₽</div>
+                            <div class="price-unit">${product.price.toLocaleString()} ₽ / шт</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Обновление итогов
+            updateSummary(subtotal, itemsCount);
+            
+            // Активация кнопки оформления
+            document.getElementById('checkout-btn').disabled = cart.length === 0;
+        }
+        
+        function updateSummary(subtotal, itemsCount) {
+            const freeDeliveryThreshold = 20000;
+            let deliveryCost = subtotal >= freeDeliveryThreshold ? 0 : 500;
+            
+            // Проверка промокода
+            const promoCode = localStorage.getItem('activePromoCode');
+            let discount = 0;
+            
+            if (promoCode === 'TECHNO10' && subtotal > 0) {
+                discount = subtotal * 0.1; // 10% скидка
+            } else if (promoCode === 'WELCOME500' && subtotal > 0) {
+                discount = 500; // 500 руб скидка
+            }
+            
+            const total = subtotal + deliveryCost - discount;
+            
+            // Обновление данных в интерфейсе
+            document.getElementById('items-count').textContent = itemsCount;
+            document.getElementById('subtotal').textContent = subtotal.toLocaleString() + ' ₽';
+            document.getElementById('delivery-cost').textContent = 
+                deliveryCost === 0 ? 'Бесплатно' : deliveryCost.toLocaleString() + ' ₽';
+            document.getElementById('discount-amount').textContent = 
+                discount > 0 ? '-' + discount.toLocaleString() + ' ₽' : '0 ₽';
+            document.getElementById('total-amount').textContent = total.toLocaleString() + ' ₽';
+            
+            // Обновление в заголовке
+            updateCartCount();
+        }
+        
+        function updateQuantity(productId, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const index = cart.findIndex(item => item.productId === productId);
+            
+            if (index !== -1) {
+                cart[index].quantity += change;
+                
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+        }
+        
+        function removeFromCart(productId) {
+            if (confirm('Удалить товар из корзины?')) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart = cart.filter(item => item.productId !== productId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+            }
+        }
+        
+        function applyPromoCode() {
+            const promoInput = document.getElementById('promo-input');
+            const code = promoInput.value.trim().toUpperCase();
+            
+            const validPromoCodes = {
+                'TECHNO10': 'Скидка 10% на весь заказ',
+                'WELCOME500': 'Скидка 500 руб на первый заказ'
+            };
+            
+            if (validPromoCodes[code]) {
+                localStorage.setItem('activePromoCode', code);
+                alert(`Промокод "${code}" активирован! ${validPromoCodes[code]}`);
+                loadCart();
+            } else {
+                alert('Неверный промокод');
+            }
+            
+            promoInput.value = '';
+        }
+        
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Корзина пуста');
+                return;
+            }
+            
+            // Здесь обычно переход на страницу оформления заказа
+            alert('Переход к оформлению заказа. В реальном проекте здесь будет форма оформления.');
+            // window.location.href = 'checkout.html';
+        }
+        
+        function loadRecommendedProducts() {
+            const container = document.getElementById('recommended-products');
+            const products = JSON.parse(localStorage.getItem('products')) || getDefaultProducts();
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Исключаем товары, уже находящиеся в корзине
+            const cartProductIds = cart.map(item => item.productId);
+            const recommended = products
+                .filter(p => !cartProductIds.includes(p.id))
+                .slice(0, 4);
+            
+            container.innerHTML = recommended.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}">
+                        <button class="fav-btn ${isFavorite(product.id) ? 'active' : ''}" onclick="toggleFavorite(${product.id})">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h3><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                        <div class="product-price">${product.price.toLocaleString()} ₽</div>
+                        <button class="btn btn-secondary" onclick="addToCart(${product.id})">В корзину</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
