@@ -130,7 +130,7 @@ function getDefaultProducts() {
             price: 24999,
             oldPrice: 29999,
             discount: 17,
-            image: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+            image: '../img/pile.PNG',
             category: 'cleaning',
             rating: 4.6,
             reviews: 213,
