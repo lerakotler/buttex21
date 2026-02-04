@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - ТехноДом</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <i class="fas fa-home"></i>
+                    <span>ТехноДом</span>
+                </a>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="../pages/catalog.html"><i class="fas fa-list"></i> Каталог</a></li>
+                    <li><a href="../pages/cart.html"><i class="fas fa-shopping-cart"></i> Корзина <span class="cart-count">0</span></a></li>
+                    <li><a href="../pages/favorites.html"><i class="fas fa-heart"></i> Избранное <span class="fav-count">0</span></a></li>
+                    <li><a href="../pages/contacts.html" class="active"><i class="fas fa-phone"></i> Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Контакты</h1>
+        
+        <div class="contacts-grid">
+            <div class="contact-info">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Адрес магазина</h3>
+                    <p>Москва, ул. Техническая, 15</p>
+                    <p class="contact-note">Ближайшее метро: Технопарк</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Часы работы</h3>
+                    <p>Пн-Пт: 9:00-21:00</p>
+                    <p>Сб-Вс: 10:00-20:00</p>
+                    <p class="contact-note">Без перерывов</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Телефоны</h3>
+                    <p>8 (800) 123-45-67</p>
+                    <p>8 (495) 123-45-67</p>
+                    <p class="contact-note">Бесплатно по России</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>info@technodom.ru</p>
+                    <p>support@technodom.ru</p>
+                    <p class="contact-note">Ответим в течение 24 часов</p>
+                </div>
+            </div>
+            
+            <div class="contact-form-container">
+                <h2>Обратная связь</h2>
+                <p>Остались вопросы? Напишите нам!</p>
+                
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Имя *</label>
+                            <input type="text" id="contact-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон *</label>
+                            <input type="tel" id="contact-phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="contact-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Тема обращения</label>
+                        <select id="contact-subject">
+                            <option value="general">Общий вопрос</option>
+                            <option value="order">Вопрос по заказу</option>
+                            <option value="delivery">Доставка</option>
+                            <option value="warranty">Гарантия</option>
+                            <option value="cooperation">Сотрудничество</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Сообщение *</label>
+                        <textarea id="contact-message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <h2>Мы на карте</h2>
+            <div class="map-placeholder">
+                <div class="map-content">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Магазин ТехноДом</h3>
+                    <p>Москва, ул. Техническая, 15</p>
+                    <p>Время работы: ежедневно с 9:00 до 21:00</p>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-directions"></i> Построить маршрут
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <h2>Часто задаваемые вопросы</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Как работает доставка?</h3>
+                    <p>Доставка осуществляется курьерской службой на следующий день после оформления заказа. Стоимость доставки - 500 рублей, при заказе от 20 000 рублей - бесплатно.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Какой гарантийный срок?</h3>
+                    <p>На всю технику предоставляется гарантия от 1 до 3 лет в зависимости от производителя. Подробности уточняйте у менеджера.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Можно ли вернуть товар?</h3>
+                    <p>Да, в течение 14 дней с момента покупки вы можете вернуть товар надлежащего качества. Товар должен сохранять товарный вид и упаковку.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Есть ли рассрочка?</h3>
+                    <p>Да, мы предоставляем рассрочку на 6, 12 или 24 месяца через банки-партнеры. Для оформления рассрочки потребуется паспорт.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>ТехноДом</h3>
+                <p>Магазин качественной бытовой техники с 2010 года</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Покупателям</h3>
+                <ul>
+                    <li><a href="../pages/catalog.html">Каталог</a></li>
+                    <li><a href="../pages/delivery.html">Доставка и оплата</a></li>
+                    <li><a href="../pages/faq.html">Вопросы и ответы</a></li>
+                    <li><a href="../pages/privacy.html">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-phone"></i> 8 (800) 123-45-67</p>
+                <p><i class="fas fa-envelope"></i> info@technodom.ru</p>
+                <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Техническая, 15</p>
+                <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-21:00</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 ТехноДом. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            updateFavCount();
+            
+            // Мобильное меню
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const nav = document.querySelector('nav ul');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                nav.classList.toggle('show');
+            });
+            
+            // Обработка формы обратной связи
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                sendContactForm();
+            });
+        });
+        
+        function sendContactForm() {
+            const formData = {
+                name: document.getElementById('contact-name').value,
+                phone: document.getElementById('contact-phone').value,
+                email: document.getElementById('contact-email').value,
+                subject: document.getElementById('contact-subject').value,
+                message: document.getElementById('contact-message').value,
+                date: new Date().toISOString()
+            };
+            
+            // Сохраняем обращение в localStorage (в реальном проекте здесь будет отправка на сервер)
+            const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+            contacts.push({...formData, id: Date.now()});
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            
+            // Очищаем форму
+            document.getElementById('contact-form').reset();
+            
+            // Показываем уведомление
+            showNotification('Ваше сообщение отправлено! Мы свяжемся с вами в ближайшее время.', 'success');
+        }
+    </script>
+    
+    <style>
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .contact-card p {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        .contact-note {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .contact-form-container {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-form-container h2 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .contact-form-container > p {
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .map-container {
+            margin-bottom: 60px;
+        }
+        
+        .map-placeholder {
+            background: linear-gradient(135deg, var(--primary), #1a2530);
+            border-radius: var(--border-radius);
+            padding: 60px;
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+        }
+        
+        .map-content i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .map-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .map-content p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .faq-section {
+            margin-bottom: 40px;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-item h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .faq-item p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 992px) {
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .contact-form-container {
+                padding: 20px;
+            }
+            
+            .map-placeholder {
+                padding: 30px 20px;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
