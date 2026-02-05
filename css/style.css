@@ -2246,3 +2246,70 @@ footer {
         flex-direction: column;
     }
 }
+/* Добавьте в конец style.css */
+.auth-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-hover);
+    padding: 20px;
+    z-index: 9999;
+    animation: slideIn 0.3s ease;
+    border-left: 4px solid var(--secondary);
+}
+
+.auth-notification.error {
+    border-left-color: var(--accent);
+}
+
+.auth-notification.success {
+    border-left-color: var(--success);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.form-alert {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 20px;
+    color: var(--accent);
+    font-size: 0.9rem;
+}
+
+.form-success {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.2);
+    color: var(--success);
+}
+
+.user-role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.user-role-badge.admin {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--secondary);
+}
+
+.user-role-badge.user {
+    background-color: rgba(149, 165, 166, 0.1);
+    color: var(--gray);
+}
