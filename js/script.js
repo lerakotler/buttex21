@@ -492,6 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeData();
     updateCartCount();
     updateFavCount();
+    checkAuth();
     
     // Проверяем текущую страницу и вызываем соответствующие функции
     const currentPage = window.location.pathname.split('/').pop();
