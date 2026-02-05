@@ -579,3 +579,102 @@ if (document.readyState === 'loading') {
 } else {
     fixProductLinks();
 }
+// Добавьте эти функции в конец файла script.js
+
+// Проверка авторизации
+function checkAuth() {
+    const session = getSession();
+    
+    // Обновляем навигацию
+    const authLinks = document.querySelectorAll('a[href="../pages/auth.html"], a[href="../pages/account.html"]');
+    const loginLinks = document.querySelectorAll('a[href="../pages/auth.html"]');
+    const accountLinks = document.querySelectorAll('a[href="../pages/account.html"]');
+    
+    if (session && session.loggedIn) {
+        // Пользователь авторизован
+        loginLinks.forEach(link => {
+            link.innerHTML = '<i class="fas fa-user"></i> Кабинет';
+            link.href = '../pages/account.html';
+        });
+        accountLinks.forEach(link => {
+            link.innerHTML = '<i class="fas fa-user"></i> Кабинет';
+        });
+    } else {
+        // Пользователь не авторизован
+        accountLinks.forEach(link => {
+            link.innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
+            link.href = '../pages/auth.html';
+        });
+    }
+}
+
+// Получение текущей сессии
+function getSession() {
+    return JSON.parse(localStorage.getItem('userSession')) || 
+           JSON.parse(sessionStorage.getItem('userSession'));
+}
+
+// Получение текущего пользователя
+function getCurrentUser() {
+    const session = getSession();
+    if (!session) return null;
+    
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    return users.find(u => u.id === session.userId) || null;
+}
+
+// Выход из системы
+function logout() {
+    if (confirm('Вы действительно хотите выйти?')) {
+        localStorage.removeItem('userSession');
+        sessionStorage.removeItem('userSession');
+        
+        showNotification('Вы вышли из системы', 'info');
+        
+        setTimeout(() => {
+            window.location.href = '../index.html';
+        }, 1000);
+    }
+}
+
+// Проверка прав администратора
+function isAdmin() {
+    const session = getSession();
+    return session && session.role === 'admin';
+}
+
+// Защита маршрутов
+function requireAuth() {
+    if (!isLoggedIn()) {
+        showNotification('Для доступа необходимо войти в систему', 'error');
+        window.location.href = '../pages/auth.html';
+        return false;
+    }
+    return true;
+}
+
+function requireAdmin() {
+    if (!isAdmin()) {
+        showNotification('Доступ запрещен. Требуются права администратора', 'error');
+        window.location.href = '../index.html';
+        return false;
+    }
+    return true;
+}
+
+// Проверка авторизации при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuth();
+    
+    // Защита страниц, требующих авторизации
+    const protectedPages = ['account.html', 'admin.html'];
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    if (protectedPages.includes(currentPage)) {
+        if (currentPage === 'admin.html' && !isAdmin()) {
+            requireAdmin();
+        } else if (currentPage === 'account.html' && !isLoggedIn()) {
+            requireAuth();
+        }
+    }
+});
