@@ -808,19 +808,13 @@
         }
         
         function logout() {
-            if (confirm('Выйти из аккаунта?')) {
-                localStorage.removeItem('currentUser');
-                window.location.href = 'index.html';
-            }
-        }
-        
-        // Проверка hash в URL при загрузке
-        window.addEventListener('load', function() {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                switchTab(hash);
-            }
-        });
+    localStorage.removeItem('userSession');
+    sessionStorage.removeItem('userSession');
+    showNotification('Вы успешно вышли из системы', 'info');
+    setTimeout(() => {
+        window.location.href = '../index.html';
+    }, 1000);
+}
     </script>
     
     <style>
