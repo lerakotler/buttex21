@@ -391,10 +391,11 @@
         let currentUser = null;
         
         document.addEventListener('DOMContentLoaded', function() {
-            loadUserData();
-            updateCartCount();
-            updateFavCount();
-            loadAccountData();
+    initializeData();
+    updateCartCount();
+    updateFavCount();
+    checkAuth();
+
             
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const nav = document.querySelector('nav ul');
