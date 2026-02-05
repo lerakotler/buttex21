@@ -1,4 +1,16 @@
-// admin.js - Скрипты для админ-панели
+document.addEventListener('DOMContentLoaded', function() {
+    // Проверка прав администратора
+    const session = JSON.parse(localStorage.getItem('userSession')) || 
+                   JSON.parse(sessionStorage.getItem('userSession'));
+    
+    if (!session || session.role !== 'admin') {
+        document.getElementById('admin-login').style.display = 'block';
+        document.getElementById('admin-panel').style.display = 'none';
+        showNotification('Требуются права администратора', 'error');
+        return;
+    }
+    
+    checkAdminAuth();// admin.js - Скрипты для админ-панели
 
 let isAdminLoggedIn = false;
 
