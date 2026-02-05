@@ -422,39 +422,57 @@ function deleteProduct(productId) {
     }
 }
 
-// Загрузка таблицы заказов
-function loadOrdersTable() {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+// Обновите функцию loadUsersTable() в admin.js для отображения статуса:
+function loadUsersTable() {
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const container = document.getElementById('orders-table');
+    const currentSession = JSON.parse(localStorage.getItem('userSession')) || 
+                          JSON.parse(sessionStorage.getItem('userSession'));
+    const container = document.getElementById('users-table');
     
-    container.innerHTML = orders.map(order => {
-        const user = users.find(u => u.id === order.userId) || { name: 'Неизвестный пользователь' };
-        
-        return `
-            <tr>
-                <td>#${order.id}</td>
-                <td>${user.name}</td>
-                <td>${order.date}</td>
-                <td>${order.total.toLocaleString()} ₽</td>
-                <td>
-                    <span class="status ${order.status}">
-                        ${getOrderStatusText(order.status)}
-                    </span>
-                </td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="btn-edit" onclick="viewOrderDetailsAdmin(${order.id})">
-                            <i class="fas fa-eye"></i>
+    container.innerHTML = users.map(user => `
+        <tr>
+            <td>${user.id}</td>
+            <td>
+                ${user.name}
+                ${user.role === 'admin' ? 
+                  '<span class="user-role-badge admin">Админ</span>' : 
+                  '<span class="user-role-badge user">Пользователь</span>'}
+            </td>
+            <td>${user.email}</td>
+            <td>${user.phone || 'Не указан'}</td>
+            <td>
+                <span class="status ${user.role === 'admin' ? 'delivered' : 'processing'}">
+                    ${user.role === 'admin' ? 'Администратор' : 'Пользователь'}
+                </span>
+            </td>
+            <td>${user.createdAt || user.regDate || 'Неизвестно'}</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-edit" onclick="editUser(${user.id})">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    ${user.id !== currentSession?.userId ? `
+                        <button class="btn-delete" onclick="deleteUser(${user.id})">
+                            <i class="fas fa-trash"></i>
                         </button>
-                        <button class="btn-edit" onclick="editOrderStatus(${order.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
-    }).join('');
+                    ` : ''}
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Добавьте функцию изменения роли пользователя:
+function changeUserRole(userId, newRole) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    if (userIndex !== -1) {
+        users[userIndex].role = newRole;
+        localStorage.setItem('users', JSON.stringify(users));
+        loadUsersTable();
+        showNotification('Роль пользователя изменена', 'success');
+    }
 }
 
 function getOrderStatusText(status) {
