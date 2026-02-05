@@ -435,32 +435,23 @@
             };
         }
         
-        function loadAccountData() {
-            // Загрузка данных профиля
-            document.getElementById('user-name').textContent = currentUser.name;
-            document.getElementById('user-email').textContent = currentUser.email;
-            document.getElementById('user-phone').textContent = currentUser.phone;
-            document.getElementById('user-regdate').textContent = currentUser.regDate;
-            
-            // Заполнение формы редактирования
-            const nameParts = currentUser.name.split(' ');
-            document.getElementById('edit-name').value = nameParts[0] || '';
-            document.getElementById('edit-surname').value = nameParts[1] || '';
-            document.getElementById('edit-email').value = currentUser.email;
-            document.getElementById('edit-phone').value = currentUser.phone;
-            
-            // Загрузка статистики
-            updateAccountStats();
-            
-            // Загрузка заказов
-            loadUserOrders();
-            
-            // Загрузка избранного
-            loadUserFavorites();
-            
-            // Загрузка отзывов
-            loadUserReviews();
-        }
+function loadUserData() {
+    const session = JSON.parse(localStorage.getItem('userSession')) || 
+                   JSON.parse(sessionStorage.getItem('userSession'));
+    
+    if (!session || !session.loggedIn) {
+        window.location.href = '../pages/auth.html';
+        return;
+    }
+    
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    currentUser = users.find(u => u.id === session.userId);
+    
+    if (!currentUser) {
+        window.location.href = '../pages/auth.html';
+        return;
+    }
+}
         
         function updateAccountStats() {
             // Заказы
