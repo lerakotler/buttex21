@@ -266,9 +266,11 @@
 
     <script src="../js/script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCartCount();
-            updateFavCount();
+document.addEventListener('DOMContentLoaded', function() {
+    initializeData();
+    updateCartCount();
+    updateFavCount();
+    checkAuth();
             
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const nav = document.querySelector('nav ul');
